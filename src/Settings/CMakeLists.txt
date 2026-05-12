@@ -1,5 +1,7 @@
 add_library(Settings
     AbstractSettingsManager.cpp AbstractSettingsManager.h
+    AppSettingsManager.h
+    AppSettingsManager.cpp
     #LoggerSettingsManager.h LoggerSettingsManager.cpp
 )
 
