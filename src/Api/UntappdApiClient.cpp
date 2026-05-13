@@ -1,20 +1,25 @@
 #include "UntappdApiClient.h"
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QUrlQuery>
+#include <QDebug>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
-#include <QDebug>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QUrlQuery>
 
-UntappdApiClient::UntappdApiClient(QObject *parent)
+UntappdApiClient::UntappdApiClient(QObject* parent)
+    : UntappdApiClient(new QNetworkAccessManager, parent)
+{
+}
+
+UntappdApiClient::UntappdApiClient(QNetworkAccessManager* nam, QObject* parent)
     : QObject(parent)
-    , m_nam(new QNetworkAccessManager(this))
+    , m_nam(nam ? nam : new QNetworkAccessManager(this))
     , m_currentReply(nullptr)
 {
 }
 
-void UntappdApiClient::searchBeer(const QString &query, int limit)
+void UntappdApiClient::searchBeer(const QString& query, int limit)
 {
     if (m_clientId.isEmpty() || m_clientSecret.isEmpty()) {
         handleError("Client ID or Secret is missing");
@@ -35,13 +40,13 @@ void UntappdApiClient::searchBeer(const QString &query, int limit)
 
     qDebug() << "Searching Untappd for:" << query;
     m_currentReply = m_nam->get(request);
-    connect(m_currentReply, &QNetworkReply::finished,
-            this, &UntappdApiClient::onSearchFinished);
+    connect(m_currentReply, &QNetworkReply::finished, this, &UntappdApiClient::onSearchFinished);
 }
 
 void UntappdApiClient::onSearchFinished()
 {
-    if (!m_currentReply) return;
+    if (!m_currentReply)
+        return;
 
     QVector<Beer> beers;
     if (m_currentReply->error() == QNetworkReply::NoError) {
@@ -55,7 +60,8 @@ void UntappdApiClient::onSearchFinished()
         if (limitOk && remainingOk) {
             emit rateLimitInfo(limit, remaining);
         }
-    } else {
+    }
+    else {
         handleError(m_currentReply->errorString());
     }
 
@@ -64,7 +70,7 @@ void UntappdApiClient::onSearchFinished()
     emit searchCompleted(beers);
 }
 
-QVector<Beer> UntappdApiClient::parseSearchResponse(const QByteArray &data)
+QVector<Beer> UntappdApiClient::parseSearchResponse(const QByteArray& data)
 {
     QVector<Beer> beers;
     QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -88,7 +94,7 @@ QVector<Beer> UntappdApiClient::parseSearchResponse(const QByteArray &data)
     QJsonObject beersObj = response["beers"].toObject();
     QJsonArray items = beersObj["items"].toArray();
 
-    for (const QJsonValue &item : items) {
+    for (const QJsonValue& item : items) {
         QJsonObject beerObj = item["beer"].toObject();
         int id = beerObj["bid"].toInt();
         QString name = beerObj["beer_name"].toString();
@@ -105,7 +111,7 @@ QVector<Beer> UntappdApiClient::parseSearchResponse(const QByteArray &data)
     return beers;
 }
 
-void UntappdApiClient::handleError(const QString &error)
+void UntappdApiClient::handleError(const QString& error)
 {
     qWarning() << "Untappd API error:" << error;
     emit errorOccurred(error);

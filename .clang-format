@@ -1,0 +1,21 @@
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: Inline
+AlwaysBreakTemplateDeclarations: Yes
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeElse: true
+ColumnLimit: 100
+IndentWidth: 4
+PointerAlignment: Left
+SpaceBeforeParens: ControlStatements
+UseTab: Never
+TabWidth: 4
+BreakConstructorInitializers: BeforeComma
+MaxEmptyLinesToKeep: 1

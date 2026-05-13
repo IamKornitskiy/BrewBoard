@@ -1,5 +1,5 @@
-#include <QtTest>
 #include <QSettings>
+#include <QtTest>
 
 #include "AppSettingsManager.h"
 
@@ -7,20 +7,18 @@ class AppSettingsManagerSpy : public QObject
 {
     Q_OBJECT
 public:
-    explicit AppSettingsManagerSpy(AppSettingsManager *target) : QObject(target)
+    explicit AppSettingsManagerSpy(AppSettingsManager* target)
+        : QObject(target)
     {
-        connect(target, &AppSettingsManager::settingsChanged,
-                this, &AppSettingsManagerSpy::onSettingsChanged);
+        connect(target, &AppSettingsManager::settingsChanged, this,
+                &AppSettingsManagerSpy::onSettingsChanged);
         m_count = 0;
     }
 
     int count() const { return m_count; }
 
 private slots:
-    void onSettingsChanged()
-    {
-        ++m_count;
-    }
+    void onSettingsChanged() { ++m_count; }
 
 private:
     int m_count;
@@ -31,13 +29,13 @@ class TestAppSettingsManager : public QObject
     Q_OBJECT
 
 private:
-    AppSettingsManager* createManager(const QString &fileName)
+    AppSettingsManager* createManager(const QString& fileName)
     {
         QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, QDir::tempPath());
         QSettings settings(fileName, QSettings::NativeFormat);
-        settings.clear(); 
+        settings.clear();
 
-        AppSettingsManager *manager = new AppSettingsManager();
+        AppSettingsManager* manager = new AppSettingsManager();
         return manager;
     }
 
@@ -56,12 +54,12 @@ private slots:
 
         manager.setClientId("test-id");
         QCOMPARE(manager.clientId(), QString("test-id"));
-        QCOMPARE(spy.count(), 1); 
+        QCOMPARE(spy.count(), 1);
 
         spy.clear();
         manager.setClientId("test-id");
         QCOMPARE(manager.clientId(), QString("test-id"));
-        QCOMPARE(spy.count(), 0); 
+        QCOMPARE(spy.count(), 0);
     }
 
     void testSetClientSecret()
@@ -71,12 +69,12 @@ private slots:
 
         manager.setClientSecret("test-secret");
         QCOMPARE(manager.clientSecret(), QString("test-secret"));
-        QCOMPARE(spy.count(), 1); 
+        QCOMPARE(spy.count(), 1);
 
         spy.clear();
         manager.setClientSecret("test-secret");
         QCOMPARE(manager.clientSecret(), QString("test-secret"));
-        QCOMPARE(spy.count(), 0); 
+        QCOMPARE(spy.count(), 0);
     }
 
     void testSaveAndLoad()
@@ -88,7 +86,7 @@ private slots:
             AppSettingsManager manager;
             manager.setClientId("persisted-id");
             manager.setClientSecret("persisted-secret");
-            manager.saveSettings(); 
+            manager.saveSettings();
         }
 
         {
@@ -124,5 +122,5 @@ private slots:
     }
 };
 
- QTEST_MAIN(TestAppSettingsManager)
- #include "tst_AppSettingsManager.moc"
+QTEST_MAIN(TestAppSettingsManager)
+#include "tst_AppSettingsManager.moc"

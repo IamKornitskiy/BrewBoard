@@ -10,18 +10,18 @@ class AppSettingsManager : public AbstractSettingsManager
     Q_PROPERTY(QString clientSecret READ clientSecret WRITE setClientSecret NOTIFY settingsChanged)
 
 public:
-    explicit AppSettingsManager(QObject *parent = nullptr);
+    explicit AppSettingsManager(QObject* parent = nullptr);
 
     QString clientId() const { return m_clientId; }
     QString clientSecret() const { return m_clientSecret; }
 
 public slots:
-    void setClientId(const QString &id);
-    void setClientSecret(const QString &secret);
+    void setClientId(const QString& id);
+    void setClientSecret(const QString& secret);
 
 protected:
-    void setParams(QSettings &settings) override;
-    void getParams(QSettings &settings) override;
+    void setParams(QSettings& settings) override;
+    void getParams(QSettings& settings) override;
     void defaultSettings() override;
 
 private:

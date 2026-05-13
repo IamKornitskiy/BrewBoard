@@ -8,10 +8,11 @@ class Beer
 {
 public:
     Beer() = default;
-    Beer(int id, const QString &name, const QString &brewery,
-         double abv, int ibu, const QString &description, const QUrl &labelUrl);
+    Beer(int id, const QString& name, const QString& brewery, double abv, int ibu,
+         const QString& description, const QUrl& labelUrl);
 
     int id() const { return m_id; }
+
     QString name() const { return m_name; }
     QString brewery() const { return m_brewery; }
     double abv() const { return m_abv; }

@@ -8,6 +8,7 @@ pkgs.mkShell {
     qt6.qtdeclarative
     ninja
     pkg-config
+    llvmPackages_19.clang-tools
   ];
 
   shellHook = ''
