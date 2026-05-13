@@ -11,6 +11,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
 add_subdirectory(src/Settings)
 add_subdirectory(src/Logger)
+add_subdirectory(src/Models)
 
 add_executable(BrewBoard
     src/main.cpp
@@ -20,6 +21,7 @@ add_executable(BrewBoard
 target_link_libraries(BrewBoard
     Settings
     Logger
+    Models
     Qt6::Core
     Qt6::Quick
     Qt6::Qml
