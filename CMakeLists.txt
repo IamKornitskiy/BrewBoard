@@ -13,17 +13,21 @@ add_subdirectory(src/Settings)
 add_subdirectory(src/Logger)
 add_subdirectory(src/Models)
 add_subdirectory(src/Api)
+add_subdirectory(src/Controllers)
 
 add_executable(BrewBoard
         src/main.cpp
         qml/qml.qrc
 )
 
+target_include_directories(BrewBoard PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 target_link_libraries(BrewBoard
         Settings
         Logger
         Models
         Api
+        Controllers
         Qt6::Core
         Qt6::Quick
         Qt6::Qml
