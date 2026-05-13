@@ -1,7 +1,7 @@
 add_library(Models STATIC
-    Beer.cpp
+        Beer.cpp
 )
 
 target_link_libraries(Models
-    Qt6::Core
+        Qt6::Core
 )

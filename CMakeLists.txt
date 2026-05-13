@@ -15,32 +15,32 @@ add_subdirectory(src/Models)
 add_subdirectory(src/Api)
 
 add_executable(BrewBoard
-    src/main.cpp
-    qml/qml.qrc
+        src/main.cpp
+        qml/qml.qrc
 )
 
 target_link_libraries(BrewBoard
-    Settings
-    Logger
-    Models
-    Api
-    Qt6::Core
-    Qt6::Quick
-    Qt6::Qml
-    Qt6::Network
+        Settings
+        Logger
+        Models
+        Api
+        Qt6::Core
+        Qt6::Quick
+        Qt6::Qml
+        Qt6::Network
 )
 
 set_target_properties(BrewBoard PROPERTIES
-    WIN32_EXECUTABLE TRUE
-    MACOSX_BUNDLE TRUE
+        WIN32_EXECUTABLE TRUE
+        MACOSX_BUNDLE TRUE
 )
 
 option(BUILD_TESTS "Build unit tests" ON)
 
-if(BUILD_TESTS)
-    enable_testing()                  
-    add_subdirectory(tests)           
-endif()
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif ()
 
 install(TARGETS BrewBoard DESTINATION bin)
 
