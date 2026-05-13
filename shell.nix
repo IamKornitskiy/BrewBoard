@@ -9,11 +9,13 @@ pkgs.mkShell {
     ninja
     pkg-config
     llvmPackages_19.clang-tools
+    gdb
+    python3
   ];
 
   shellHook = ''
-    echo "Entering Drink Menu development environment"
+    echo "Entering BrewBoard development environment"
     # Явно указываем CMake пути к пакетам
-    export CMAKE_PREFIX_PATH="${pkgs.yaml-cpp}:${pkgs.qt6.qtbase}:${pkgs.qt6.qtdeclarative}:$CMAKE_PREFIX_PATH"
+    export CMAKE_PREFIX_PATH="${pkgs.qt6.qtbase}:${pkgs.qt6.qtdeclarative}:$CMAKE_PREFIX_PATH"
   '';
 }
