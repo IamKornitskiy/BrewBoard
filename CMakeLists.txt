@@ -7,11 +7,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml Network)
 
 add_subdirectory(src/Settings)
 add_subdirectory(src/Logger)
 add_subdirectory(src/Models)
+add_subdirectory(src/Api)
 
 add_executable(BrewBoard
     src/main.cpp
@@ -22,9 +23,11 @@ target_link_libraries(BrewBoard
     Settings
     Logger
     Models
+    Api
     Qt6::Core
     Qt6::Quick
     Qt6::Qml
+    Qt6::Network
 )
 
 set_target_properties(BrewBoard PROPERTIES

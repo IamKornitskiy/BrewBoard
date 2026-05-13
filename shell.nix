@@ -6,7 +6,6 @@ pkgs.mkShell {
     cmake
     qt6.qtbase
     qt6.qtdeclarative
-    yaml-cpp
     ninja
     pkg-config
   ];
