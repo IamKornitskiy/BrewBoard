@@ -30,4 +30,12 @@ set_target_properties(BrewBoard PROPERTIES
     MACOSX_BUNDLE TRUE
 )
 
+option(BUILD_TESTS "Build unit tests" ON)
+
+if(BUILD_TESTS)
+    enable_testing()                  
+    add_subdirectory(tests)           
+endif()
+
 install(TARGETS BrewBoard DESTINATION bin)
+
