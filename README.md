@@ -47,19 +47,19 @@ make
 ## Future plans / Планы на будущее
 **EN:**
 
-Create an interactive bar board showing beers on taps (menu).
+- Create an interactive bar board showing beers on taps (menu).
 
-Use a different API (e.g., Punk API, local JSON) or wait for Untappd policy change.
+- Use a different API (e.g., Punk API, local JSON) or wait for Untappd policy change.
 
-Add tap status, ABV, IBU, brewery info, and real‑time updates.
+- Add tap status, ABV, IBU, brewery info, and real‑time updates.
 
 **RU:**
 
-Разработать интерактивную барную доску с информацией о пиве на кранах (меню).
+- Разработать интерактивную барную доску с информацией о пиве на кранах (меню).
 
-Использовать другой API (например, Punk API, локальный JSON) или ждать изменения политики Untappd.
+- Использовать другой API (например, Punk API, локальный JSON) или ждать изменения политики Untappd.
 
-Добавить статус кранов, ABV, IBU, информацию о пивоварне и обновление в реальном времени.
+- Добавить статус кранов, ABV, IBU, информацию о пивоварне и обновление в реальном времени.
 
 ### 📫 Contact
 Email: iam@kornitskiy.ru
