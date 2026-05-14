@@ -4,6 +4,7 @@
 BeerSearchController::BeerSearchController(QObject* parent)
     : QObject(parent)
     , m_apiClient(new UntappdApiClient(this))
+    , m_beers(new BeerListModel(this))
 {
     connect(m_apiClient, &UntappdApiClient::searchCompleted, this,
             &BeerSearchController::onSearchCompleted);
@@ -35,11 +36,10 @@ void BeerSearchController::setApiKeys(const QString& clientId, const QString& cl
 
 void BeerSearchController::onSearchCompleted(const QVector<Beer>& beers)
 {
-    m_beers = beers;
+    m_beers->setBeers(beers);
     m_loading = false;
     emit beersChanged();
     emit loadingChanged();
-    qDebug() << "Search completed, found" << beers.size() << "beers";
 }
 
 void BeerSearchController::onErrorOccurred(const QString& error)
