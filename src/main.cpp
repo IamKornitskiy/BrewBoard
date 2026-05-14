@@ -1,7 +1,10 @@
-#include <LoggerMacros.h>
+#include "AppSettingsManager.h"
+#include "Controllers/BeerSearchController.h"
+#include "LoggerMacros.h"
 #include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 int main(int argc, char* argv[])
 {
@@ -18,6 +21,17 @@ int main(int argc, char* argv[])
                  .arg(QCoreApplication::applicationVersion()));
 
     QQmlApplicationEngine engine;
+
+    AppSettingsManager settings;
+    settings.loadSettings();
+
+    BeerSearchController searchController;
+    searchController.setApiKeys(settings.clientId(), settings.clientSecret());
+
+    QQmlContext* context = engine.rootContext();
+    context->setContextProperty("searchController", &searchController);
+    context->setContextProperty("appSettings", &settings);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,
@@ -26,7 +40,10 @@ int main(int argc, char* argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
-    engine.load(url);
+
+    qmlRegisterType<BeerListModel>("BrewBoard", 1, 0, "BeerListModel");
+
+    engine.load(QUrl(QStringLiteral("qrc:/main")));
 
     return app.exec();
 }
